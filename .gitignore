@@ -4,3 +4,6 @@ venv
 *.iml
 out
 gen
+
+/app/uploads
+/app/static/img/plots

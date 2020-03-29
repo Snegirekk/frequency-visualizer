@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="row">
+            <div class="col-12 alert {% if category == 'error' %}alert-danger{% else %}alert-success{% endif %}">{{ message }}</div>
+        </div>
+    {% endfor %}
+
+    <main class="row mt-5">
+        <div class="col-5">
+            <form enctype="multipart/form-data" method="POST" action="{{ url_for('main.upload') }}">
+                <div class="custom-file">
+                    <input class="custom-file-input" id="audio" type="file" name="audio" required>
+                    <label class="custom-file-label" for="audio">Choose mp3 file</label>
+                </div>
+
+                <button class="btn btn-info mt-3" type="submit">upload</button>
+            </form>
+        </div>
+
+        <div class="col-7 text-center">
+            {% if plot_web_path %}
+                <img class="mw-100" src="{{ url_for('static', filename=plot_web_path) }}" alt="plot">
+            {% else %}
+                <span class="font-weight-bold">Load an mp3 file to see the spectrogram</span>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}
+
+{% block javascript %}
+    {{ super() }}
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% endblock %}
