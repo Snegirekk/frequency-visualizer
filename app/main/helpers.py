@@ -28,6 +28,8 @@ def create_spectrogram(file, plots_path):
     if isfile(img_path):
         return img_name
 
+    plot.clf()
+
     y, sr = librosa.load(file.get_full_path())
     amplitude = np.absolute(librosa.stft(y))
     librosa.display.specshow(librosa.amplitude_to_db(amplitude, ref=np.max), y_axis='log', x_axis='time')
